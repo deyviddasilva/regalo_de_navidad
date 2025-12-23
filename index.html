@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GATITA💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <audio id="bgMusic" loop preload="auto">
+    <source src="music_fmgf.mp3" type="audio/mpeg">
+</audio>
+    <style>
+    html, body { 
+    height: 100vh; overflow-y: auto; margin: 0; padding: 0;
+    background: linear-gradient(135deg, #f5deb3 0%, #ffe4e1 30%, #f4e4bc 70%, #fff8dc 100%);
+    position: relative; text-align: center;font-family: 'Dancing Script', cursive;
+}
+        @keyframes fadeIn { from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);} }
+        .snow { 
+            position: fixed; top: -10%; color: #e0f7ff; font-size: 18px; 
+            pointer-events: none; z-index: 999; animation: snowfall linear infinite;
+            animation-play-state: paused; /* PAUSADO no início! */
+        }
+        @keyframes snowfall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        @media (max-width:600px) { button { padding:10px !important; font-size:16px !important; } }
+        @keyframes zoomIn { from {opacity:0; transform:scale(0.8);} to {opacity:1; transform:scale(1);} }
+        @keyframes heartBurst {
+    0% { transform: scale(0) rotate(0deg); opacity:1; }
+    100% { transform: scale(2) rotate(720deg) translateY(-200px); opacity:0; }
+}
+    audio { display: none; }
+    </style>
+</head>
+<body>
+    <!-- INÍCIO -->
+    <div id="welcomeScreen" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:linear-gradient(135deg, #f5deb3, #ffe4e1); z-index:2000; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; animation:fadeIn 1s;">
+    <div style="font-size:4em; margin-bottom:20px;">💛</div>
+    <h1 style="font-family:'Dancing Script', cursive; font-size:3.5em; color:#ff4081; margin:0;">De: Deyvid <br> Para: Melody</h1>
+    <p style="font-size:1.5em; color:#666; margin:20px;">Clic para mirar tu regalo!</p>
+    <button id="btnPresente" onclick="mostrarPresente()" style="background:#ff4081; color:white; border:none; padding:20px 40px; font-size:1.5em; border-radius:50px; cursor:pointer; box-shadow:0 10px 30px rgba(255,64,129,0.4); font-family:'Dancing Script'; position:relative; overflow:hidden;"> 🎁</button>
+</div>
+    <!-- HEADER --> 
+    <div style="padding:10px 20px;">
+        <h1 style="font-size:2.5em; color:#ff4081; margin:0; animation:fadeIn 2s;">Feliz Navidad, Doctora! 🎄💕</h1>
+        <h2 style="font-size:1.2em; color:#333; margin:5px 0;">Todos los dias contigo es motivo de felicidad. Que este sea nuestro primer de muchas navidad que he por venir✨❤️</h2>
+    </div>
+
+    <!-- GALERIA -->
+    <div id="galeria" style="max-width:500px; margin:0 auto 50px; position:relative;">
+    <img id="fotoAtual" src="chiquit.jpeg" style="width:100%; height:50vh; object-fit:contain; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.3); background:#fff;">
+    <button onclick="proximaFoto()" style="position:absolute; right:-30px; top:50%; transform:translateY(-50%); background:transparent; color:#ff4081; border:none; font-size:30px; cursor:pointer;">›</button>
+    <button onclick="fotoAnterior()" style="position:absolute; left:-30px; top:50%; transform:translateY(-50%); background:transparent; color:#ff4081; border:none; font-size:30px; cursor:pointer;">‹</button>
+</div>
+    <h2>Un simples regalo pero hecho con mucho cariño y amor!</h2>
+    <!-- CONTADOR -->
+    <div id="countdown" style="font-size:2em; color:#ff4081; margin:50px; font-weight:bold; text-shadow:2px 2px 4px rgba(0,0,0,0.3);"> </div>
+
+    <div>
+    <button onclick="mensagemFinal()" style="
+    background: linear-gradient(45deg, #ff69b4, #ff1493, #ff69b4);
+    color: white; border: none; padding: 25px 50px; 
+    font-size: 1.8em; border-radius: 50px; cursor: pointer;
+    box-shadow: 0 15px 40px rgba(255,20,147,0.6), 0 0 20px rgba(255,105,180,0.4);
+    font-family: 'Dancing Script', cursive; font-weight: 700;
+    position: relative; overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25,0.8,0.25,1);">
+    💕 Te Amo 💕
+</button>
+</div>
+
+<script>
+    function mostrarPresente() {
+    // Explosão de corações SAINDO do botão! 
+    for(let i=0; i<30; i++) {
+        setTimeout(() => {
+            let heart = document.createElement('div');
+            heart.innerHTML = '💖';
+            heart.style.cssText = `
+                position:fixed; left:50%; top:50%; font-size:30px; 
+                pointer-events:none; z-index:2001;
+                animation: heartBurst 2s ease-out forwards;
+            `;
+            heart.style.left = 'calc(50% + ' + (Math.random()-0.5)*100 + 'px)';
+            heart.style.top = 'calc(50% + ' + (Math.random()-0.5)*100 + 'px)';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 2000);
+        }, i*50);
+    }
+    
+    setTimeout(() => {
+        document.getElementById('welcomeScreen').style.display = 'none';
+        
+        // 5 SEGUNDOS DEPOIS: NEVE COMEÇA A CAIR!
+        setTimeout(() => {
+            document.querySelectorAll('.snow').forEach(s => {
+                s.style.animationPlayState = 'running';
+            });
+        }, 5000);
+    }, 1500);
+}
+
+// CARROSEL DE FOTOS 
+let fotos = ['chiquit.jpeg','pic02.jpeg','pic03.jpeg'];
+let atual = 0;
+
+function proximaFoto() { 
+    atual = (atual + 1) % fotos.length; 
+    document.getElementById('fotoAtual').src = fotos[atual]; 
+}
+function fotoAnterior() { 
+    atual = (atual - 1 + fotos.length) % fotos.length; 
+    document.getElementById('fotoAtual').src = fotos[atual]; 
+}
+
+// MENSAGEM DE ATENÇÃO!!
+function mensagemFinal() {
+    let modal = document.createElement('div');
+    modal.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,64,129,0.98);z-index:1000;display:flex;align-items:center;justify-content:center;flex-direction:column;color:white;text-align:center;font-size:1.5em;animation:zoomIn 0.5s;";
+    modal.innerHTML = `<h2>💖 Lee con atencion bb! 💖</h2><p> No hay palabras para describir a una persona que en tampoco tiempo he llegado y llenó my corazon y mi vida con amor. Que lindo es tenerte en mi vida!! 🎄❤️</p><button onclick="this.parentElement.remove()" style="background:#fff;color:#ff4081;border:none;padding:15px 30px;border-radius:30px;font-size:1.2em;cursor:pointer;margin-top:20px;">Fechar 💕</button>`;
+    document.body.appendChild(modal);
+}
+
+// Contador
+let natal = new Date('Dec 25, 2025 00:00:00').getTime();
+setInterval(() => {
+    let agora = new Date().getTime();
+    let dist = natal - agora;
+    let dias = Math.floor(dist / (1000*60*60*24));
+    let horas = Math.floor((dist % (1000*60*60*24)) / (1000*60*60));
+    document.getElementById('countdown').innerHTML = `⏰ ${dias}d ${horas}h hasta navidad! 🎄❤️`;
+}, 1000);
+
+// Flocos (criados pausados!)
+for(let i = 0; i < 70; i++) {
+    let snow = document.createElement('div');
+    snow.innerHTML = '❄️'; snow.className = 'snow';
+    snow.style.left = Math.random() * 100 + '%';
+    snow.style.fontSize = (Math.random() * 10 + 12) + 'px';
+    snow.style.animationDuration = (Math.random() * 4 + 3) + 's';
+    snow.style.animationDelay = Math.random() * 8 + 's';
+    document.body.appendChild(snow);
+}
+
+// MUSICA
+setTimeout(() => {
+    document.getElementById('bgMusic').play().catch(e => console.log('Áudio bloqueado'));
+}, 5000);
+// Botão discreto pra iniciar música (obrigatório!)
+let musicaTocando = false;
+document.body.addEventListener('click', function() {
+    if(!musicaTocando) {
+        document.getElementById('bgMusic').volume = 0.2;
+        document.getElementById('bgMusic').play();
+        musicaTocando = true;
+    }
+}, {once: true});
+</script>
+</body>
+</html>
